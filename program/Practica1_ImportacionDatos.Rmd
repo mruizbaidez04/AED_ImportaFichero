@@ -180,5 +180,40 @@ summary(BreadBasket)
 
 # Fichero SPSS *PsychBike.sav*
 
+## Importación del fichero
+
+Leemos el fichero
+
+```{r}
+library(haven)
+
+PsychBike <- read_sav(paste0(path, "data/PsychBike.sav"))
+```
+
+Lo guardamos en la carpeta results
+
+```{r}
+save(PsychBike, file=paste0(path, "results/PsychBike.RData"))
+```
+
+## Inspección de los datos
+
+```{r}
+str(PsychBike)
+```
+
+```{r}
+head(PsychBike, 5)
+```
+
+```{r}
+tail(PsychBike, 5)
+```
+
+```{r}
+PsychBike2 <- PsychBike
+PsychBike2$hour <- as.character(PsychBike2$hour)
+summary(PsychBike2)
+```
 
 
