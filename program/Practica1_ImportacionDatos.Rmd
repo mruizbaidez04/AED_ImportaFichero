@@ -1,0 +1,105 @@
+---
+title: "Práctica 1. Importación de datos"
+author: "Marcos Ruiz Baidez"
+date: "`r Sys.Date()`"
+output:
+  bookdown::pdf_document2:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    figure_caption: "Figura" # Referencias en castellano
+    table_caption: "Tabla"
+  html_document:
+    echo: true
+    number_sections: true
+    theme: lumen
+    toc: true
+  html_notebook:
+    echo: true
+    number_sections: true
+    toc: true
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+  bookdown::html_document2:
+    echo: true
+    number_sections: true
+    theme: spacelab
+    toc: true
+    figure_caption: "Figura"
+    table_caption: "Tabla"
+always_allow_html: true
+params:
+  lang: ES
+lang: "`r switch(params$lang, ES = 'es-ES', EN = 'en-US')`"
+subtitle: "Análisis Exploratorio de Datos. Máster en Ciencia de Datos- UV"
+language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabla '
+    eq: 'Ecuación '
+    thm: 'Teorema '
+    lem: 'Lema '
+    def: 'Definición '
+    cor: 'Corolario '
+    prp: 'Proposición '
+    exm: 'Ejemplo '
+    exr: 'Ejercicio '
+    proof: 'Demostración. '
+    remark: 'Nota: '
+    solution: 'Solución. '
+---
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+
+
+# CONFIGURACIÓN GENERAL
+library(knitr)
+options(width = 100)
+
+# Opciones generales de los chucks. Se utilizarán salvo cambios en el chunk
+opts_chunk$set(echo=F, message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 200, tidy = F, cache.path = '.cache/', fig.path = './figura/')
+
+# Opciones generales de dígitos cuando se incluyen tablas
+#options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+#knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+# Introducción
+
+# Fichero *DFP1_11122015 124700.csv*
+
+Comenzamos leyendo los datos con las opciones base y readr. Utilizando ambas funciones por defecto, sin modificar opciones, observamos en primer lugar que con la opción base lee el espacio del nombre *DFP1_11122015 124700* como un punto, mientras que la opción readr lo lee como una barra baja. Por otro lado, la opción base genera un data frame con 5 columnas, pero la opción readr genera un data frame con una única columna. Para solucionar esto habría que modificar el tipo de separador en las opciones de lectura de readr.
+
+Leemos ahora el archivo usando `read.csv` y el parámetro `stringsAsFactors = F`. Para realizar la carpeta uso la ruta absoluta **path**, porque me da error al leerlo con la ruta relativa.
+
+```{r}
+path <- "C:/Proyectos/AnalisisExploratorioDatos/AED_ImportaFicheros/"
+
+Deposito <- read.csv(paste0(path, "data/DFP1_11122015 124700.csv"), 
+                     sep="\t", 
+                     header=TRUE,
+                     stringsAsFactors=F)
+```
+
+Convertimos ahora las columnas `FECHA` Y `HORA` a los formatos especificados
+
+```{r}
+# install.packages("hms") para instalar el paquete
+library(hms)
+
+Deposito$FECHA <- as.POSIXlt(Deposito$FECHA, format="%d/%m/%Y")
+Deposito$HORA <- as.hms(Deposito$HORA)
+```
+
+Guardamos los datos en un archivo `.RData`
+
