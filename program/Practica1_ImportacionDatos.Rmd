@@ -313,6 +313,45 @@ tail(FileCodificado, 5)
 summary(FileCodificado)
 ```
 
+# Fichero JSON *iris_json.json*
+
+## Importar el fichero
+
+Importamos el fichero con `read_json` y `from_JSON` y observamos las diferencias
+
+```{r}
+iris_json <- read_json(paste0(path, "data/data_iris_json.json"), simplifyVector = TRUE)
+
+iris_json2 <- fromJSON(paste0(path, "data/data_iris_json.json"), simplifyVector = TRUE)
+```
+
+Almacenamos los resultados en results
+
+```{r}
+save(iris_json, file=paste0(path, "results/iris_json.RData"))
+```
+
+## Inspección de los datos
+
+```{r}
+str(iris_json)
+```
+
+```{r}
+head(iris_json, 5)
+```
+
+```{r}
+tail(iris_json)
+```
+
+```{r}
+summary(iris_json)
+```
+
+## Exportar datos en formato JSON
+
+
 
 
 
