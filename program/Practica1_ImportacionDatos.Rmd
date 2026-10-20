@@ -216,4 +216,21 @@ PsychBike2$hour <- as.character(PsychBike2$hour)
 summary(PsychBike2)
 ```
 
+# Fichero data *iris.zip*
+
+Descargamos el zip y lo guardamos en la carpeta data
+
+```{r}
+URL <- "https://archive.ics.uci.edu/static/public/53/iris.zip"
+download.file(url=URL, destfile = paste0(path, "data/iris.zip"))
+```
+
+## Descomprimir el fichero
+
+Usamos la función `unzip` para descomprimir el fichero
+
+```{r}
+unzip(paste0(path, "data/iris.zip"), exdir="../data")
+```
+
 
