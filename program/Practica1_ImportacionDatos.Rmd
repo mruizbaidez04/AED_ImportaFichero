@@ -138,4 +138,47 @@ summary(read.csv(paste0(path, "data/DFP1_11122015 124700.csv"),
                      stringsAsFactors=F))
 ```
 
+# Fichero *Transactions from a Bakery* (Kaggle)
+
+## Importación del fichero
+
+Leemos el fichero usando la opción `readr`
+
+```{r}
+library(readr)
+BreadBasket <- read_csv(paste0(path, "data/bakery_sales_revised.csv"), 
+                                   col_types = cols(date_time = col_datetime(format = "%m/%d/%Y  %H:%M"),
+                                                    period_day = col_factor(levels = c("morning", "afternoon", "evening")), 
+                                                    weekday_weekend = col_factor(levels = c("weekday","weekend"))))
+
+View(BreadBasket)    # Visualizamos la lectura
+```
+
+Guardamos el data frame en la carpeta results
+
+```{r}
+save(BreadBasket, file=paste0(path, "results/BreadBasket.RData"))
+```
+
+## Inspección de los datos
+
+```{r}
+str(BreadBasket)
+```
+
+```{r}
+head(BreadBasket, 5)
+```
+
+```{r}
+tail(BreadBasket, 5)
+```
+
+```{r}
+summary(BreadBasket)
+```
+
+# Fichero SPSS *PsychBike.sav*
+
+
 
