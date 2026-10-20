@@ -277,6 +277,44 @@ summary(iris)
 
 ## Importación del fichero
 
+Leemos el archivo con la función `read_json`
+
+```{r}
+library(jsonlite)
+
+FileCodificado <- read_json(paste0(path, "data/FileCodificado.json"), simplifyVector=TRUE)
+```
+
+Lo guardamos en la carpeta results
+
+```{r}
+save(FileCodificado, file=paste0(path, "results/FileCodificado.RData"))
+```
+
+## Inspección de los datos
+
+```{r}
+dim(FileCodificado)
+```
+
+```{r}
+str(FileCodificado)
+```
+
+```{r}
+head(FileCodificado, 5)
+```
+
+```{r}
+tail(FileCodificado, 5)
+```
+
+```{r}
+summary(FileCodificado)
+```
+
+
+
 
 
 
