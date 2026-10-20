@@ -83,7 +83,7 @@ Comenzamos leyendo los datos con las opciones base y readr. Utilizando ambas fun
 Leemos ahora el archivo usando `read.csv` y el parámetro `stringsAsFactors = F`. Para realizar la carpeta uso la ruta absoluta **path**, porque me da error al leerlo con la ruta relativa.
 
 ```{r}
-path <- "C:/Proyectos/AnalisisExploratorioDatos/AED_ImportaFicheros/"
+path <- "C:/Proyectos/AnalisisExploratorioDatos/AED_ImportaFicheros/AED_ImportaFichero/"
 
 Deposito <- read.csv(paste0(path, "data/DFP1_11122015 124700.csv"), 
                      sep="\t", 
@@ -97,9 +97,45 @@ Convertimos ahora las columnas `FECHA` Y `HORA` a los formatos especificados
 # install.packages("hms") para instalar el paquete
 library(hms)
 
-Deposito$FECHA <- as.POSIXlt(Deposito$FECHA, format="%d/%m/%Y")
+Deposito$FECHA <- as.POSIXct(Deposito$FECHA, format="%d/%m/%Y")
 Deposito$HORA <- as.hms(Deposito$HORA)
 ```
 
 Guardamos los datos en un archivo `.RData`
+
+```{r}
+save(Deposito, file=paste0(path, "results/Deposito.RData"))
+```
+
+## Inspección de los datos
+
+Inspeccionamos los datos con las siguientes funciones:
+
+- `str`: devuelve la estructura del data frame y de sus columnas
+
+```{r}
+str(Deposito)
+```
+
+- `head`: devuelve las primeras filas (por defecto solo 1) del data frame
+
+```{r}
+head(Deposito, 5)
+```
+
+- `tail`: devuelve las últimas filas (por defecto solo 1) del data frame
+
+```{r}
+tail(Deposito, 5)
+```
+
+- `summary`: hace un resumen estadístico de cada una de las columnas del data frame
+
+```{r}
+summary(read.csv(paste0(path, "data/DFP1_11122015 124700.csv"), 
+                     sep="\t", 
+                     header=TRUE,
+                     stringsAsFactors=F))
+```
+
 
