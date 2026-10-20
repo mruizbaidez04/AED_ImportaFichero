@@ -233,4 +233,50 @@ Usamos la función `unzip` para descomprimir el fichero
 unzip(paste0(path, "data/iris.zip"), exdir="../data")
 ```
 
+# Fichero data *iris.data*
+
+## Importación del fichero
+
+Leemos los datos con la función `read.table`
+
+```{r}
+iris <- read.table(paste0(path, "data/iris.data"), sep=",")
+```
+
+Cambiamos los nombres de las columnas
+
+```{r}
+colnames(iris) <- c("sepal_length", "sepal_width", "petal_length", "petal_width", "species")
+```
+
+Guardamos en la carpeta results
+
+```{r}
+save(iris, file=paste0(path, "results/iris.RData"))
+```
+
+## Inspección de los datos
+
+```{r}
+str(iris)
+```
+
+```{r}
+head(iris, 5)
+```
+
+```{r}
+tail(iris, 5)
+```
+
+```{r}
+summary(iris)
+```
+
+# Fichero JSON *FileCodificado.json*
+
+## Importación del fichero
+
+
+
 
